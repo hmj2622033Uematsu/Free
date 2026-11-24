@@ -4,7 +4,7 @@
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	const int WIDTH = 960, HEIGHT = 640; // ウィンドウの幅と高さのピクセル数
-	SetWindowText("テニスゲーム"); // ウィンドウタイトル
+	SetWindowText("PANDORA"); // ウィンドウタイトル
 	SetGraphMode(WIDTH, HEIGHT, 32); // ウィンドウの大きさとカラービット数の設定
 	ChangeWindowMode(true); // ウィンドウモードで起動
 	if (DxLib_Init() == -1) return -1; // ライブラリの初期化 エラーが起きたら終了
