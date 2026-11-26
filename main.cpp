@@ -1,9 +1,12 @@
 #include <DxLib.h>
+#include <string>
+#include "CommandSystem.h"
+
+const int WIDTH = 960, HEIGHT = 640; // ウィンドウの幅と高さのピクセル数
 
 
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	const int WIDTH = 960, HEIGHT = 640; // ウィンドウの幅と高さのピクセル数
 	SetWindowText("PANDORA"); // ウィンドウタイトル
 	SetGraphMode(WIDTH, HEIGHT, 32); // ウィンドウの大きさとカラービット数の設定
 	ChangeWindowMode(true); // ウィンドウモードで起動
@@ -11,10 +14,19 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	SetBackgroundColor(0, 0, 0); // 背景色の指定
 	SetDrawScreen(DX_SCREEN_BACK); // 描画面を裏画面にする
 
+	// 
+	CommandSystem command;
 
 	while (1) // メインループ
 	{
+		
 		ClearDrawScreen(); // 画面をクリアする
+
+		// コマンド更新
+		command.Update();
+
+		// コマンド描画
+		command.Draw();
 
 
 		ScreenFlip(); // 裏画面の内容を表画面に反映させる
