@@ -137,9 +137,11 @@
   <ItemGroup>
     <ClCompile Include="CommandSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TargetSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandSystem.h" />
+    <ClInclude Include="TargetSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

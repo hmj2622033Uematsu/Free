@@ -4,10 +4,10 @@
 void CommandSystem::Update()
 {
 
-	// 上キー
+	// 左キー
 	bool leftKeyNow = CheckHitKey(KEY_INPUT_LEFT);
 
-	if (leftKeyNow && !leftKeyPrev)
+	if (leftKeyNow && !leftKeyPrev) // 連続入力を防ぐ
 	{
 		selectCommand--;
 		if (selectCommand < 0)
@@ -15,7 +15,7 @@ void CommandSystem::Update()
 			selectCommand = CommandCount - 1;
 		}
 	}
-	// 下キー
+	// 右キー
 	bool rightKeyNow = CheckHitKey(KEY_INPUT_RIGHT);
 	if (rightKeyNow && !rightKeyPrev)
 	{
@@ -26,14 +26,22 @@ void CommandSystem::Update()
 		}
 	}
 
+	// Enterキー
+	bool enterKeyNow = CheckHitKey(KEY_INPUT_RETURN);
+	if (enterKeyNow && !enterKeyPrev)
+	{
+		decision = true;
+	}
+
 	// キー状態を保存
 	leftKeyPrev = leftKeyNow;
 	rightKeyPrev = rightKeyNow;
+	enterKeyPrev = enterKeyNow;
 }
 
 void CommandSystem::Draw()
 {
-	// コマンド表示エリア
+	// コマンド表示ウィンドウ
 	DrawBox(0, 400, 960, 640, GetColor(20, 30, 42), true);
 
 	// コマンドタイトル
@@ -70,4 +78,10 @@ void CommandSystem::Draw()
 int CommandSystem::GetSelectCommand()
 {
 	return selectCommand;
+}
+
+// コマンド決定の確認
+bool CommandSystem::IsDecided()
+{
+	return decision;
 }

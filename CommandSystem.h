@@ -23,6 +23,9 @@ private:
 	// 前回のキー状態
 	bool leftKeyPrev = false;
 	bool rightKeyPrev = false;
+	bool enterKeyPrev = false;
+	// 決定状態
+	bool decision = false;
 
 public:
 	// コマンドの更新
@@ -33,5 +36,8 @@ public:
 
 	// 選択中の番号を取得
 	int GetSelectCommand();
+
+	// コマンド決定の確認
+	bool IsDecided();
 }
 ;
