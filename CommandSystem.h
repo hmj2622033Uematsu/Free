@@ -34,6 +34,9 @@ public:
 	// コマンドの描画
 	void Draw();
 
+	// キー状態のリセット
+	void ResetKeyState();
+
 	// 選択中の番号を取得
 	int GetSelectCommand();
 

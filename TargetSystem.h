@@ -35,11 +35,15 @@ public:
 	// 対象の描画
 	void Draw();
 
+	// 状態のリセット
+	void Reset();
+
 	// 決定したか確認
 	bool IsDecided();
 
 	// キャンセルしたか確認
-	bool IsCanseled();
+	bool IsCanceled();
+
 
 	// 選択中の対象番号を取得
 	int GetSelectedTarget();

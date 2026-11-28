@@ -107,9 +107,16 @@ void TargetSystem::SetTargets(int commandIndex)
 		break;
 
 		//画面切り替え直後の連続入力を防止
-		enterKeyPrev = CheckHitKey(KEY_INPUT_RETURN);
 		upKeyPrev = CheckHitKey(KEY_INPUT_UP);
 		downKeyPrev = CheckHitKey(KEY_INPUT_DOWN);
+		escKeyPrev = CheckHitKey(KEY_INPUT_ESCAPE);
+
+		// enterキーの連続入力を防ぐ
+		enterKeyPrev = true;
+		
+		// 状態を初期化
+		cancel = false;
+		decision = false;
 	}
 }
 
@@ -117,14 +124,13 @@ void TargetSystem::SetTargets(int commandIndex)
 void TargetSystem::Update()
 {
 	decision = false;
-	cancel = false;
 
 	bool upKeyNow = CheckHitKey(KEY_INPUT_UP);
 	bool downKeyNow = CheckHitKey(KEY_INPUT_DOWN);
 	bool enterKeyNow = CheckHitKey(KEY_INPUT_RETURN);
 	bool escKeyNow = CheckHitKey(KEY_INPUT_ESCAPE);
 
-	// 左キー
+	// 上キー
 	if (upKeyNow && !upKeyPrev) // 連続入力を防ぐ
 	{
 		selectTarget--;
@@ -133,7 +139,7 @@ void TargetSystem::Update()
 			selectTarget = targetCount - 1;
 		}
 	}
-	// 右キー
+	// 左キー
 	if (downKeyNow && !downKeyPrev)
 	{
 		selectTarget++;
@@ -179,7 +185,7 @@ void TargetSystem::Draw()
 
 		if (i == selectTarget)
 		{
-			color = GetColor(255, 230, 150);
+			color = GetColor(0, 128, 0);
 		}
 		else
 		{
@@ -195,13 +201,27 @@ void TargetSystem::Draw()
 	}
 };
 
+// キャンセル状態をリセット
+void TargetSystem::Reset()
+{
+	cancel = false;
+	decision = false;
+
+	// キー状態もリセット
+	upKeyPrev = CheckHitKey(KEY_INPUT_UP);
+	downKeyPrev = CheckHitKey(KEY_INPUT_DOWN);
+	escKeyPrev = CheckHitKey(KEY_INPUT_ESCAPE);
+	// enterキーの連続入力を防ぐ
+	enterKeyPrev = true;
+}
+
 // 決定確認
 bool TargetSystem::IsDecided()
 {
 	return decision;
 }
 // キャンセル確認
-bool TargetSystem::IsCanseled()
+bool TargetSystem::IsCanceled()
 {
 	return cancel;
 }

@@ -3,6 +3,7 @@
 
 void CommandSystem::Update()
 {
+	decision = false;
 
 	// 左キー
 	bool leftKeyNow = CheckHitKey(KEY_INPUT_LEFT);
@@ -72,6 +73,16 @@ void CommandSystem::Draw()
 	}
 	// 操作説明
 	DrawString(480, 450, "←→ : 選択", GetColor(180, 210, 230));
+}
+
+void CommandSystem::ResetKeyState()
+{
+	//enterKeyPrev = CheckHitKey(KEY_INPUT_RETURN);
+	leftKeyPrev = CheckHitKey(KEY_INPUT_LEFT);
+	rightKeyPrev = CheckHitKey(KEY_INPUT_RIGHT);
+
+	// enterキーの連続入力を防ぐ
+	enterKeyPrev = true;
 }
 
 // 選択中のコマンドを取得

@@ -27,11 +27,6 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	while (1) // メインループ
 	{
-		//コマンド画面でESC終了
-		//if (CheckHitKey(KEY_INPUT_ESCAPE) && !targetMode)
-		//{
-		//	break;
-		//}
 		
 		ClearDrawScreen(); // 画面をクリアする
 
@@ -67,10 +62,17 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 			// 対象更新
 			target.Update();
 
-			// Escでコマンド画面へ戻る
-			if (target.IsCanseled())
+
+			// Escでコマンド画面に戻る
+			if (target.IsCanceled())
 			{
 				targetMode = false;
+
+				// 対象システムの状態をリセット
+				target.Reset();
+
+				// コマンドシステムのキー状態をリセット
+				command.ResetKeyState();
 			}
 
 			// Enterで対象設定
@@ -79,12 +81,22 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 				selectedTargetName = target.GetSelectedTargetName();
 				//コマンド選択画面へ戻る
 				targetMode = false;
+
+				// 対象システムの状態をリセット
+				target.Reset();
+
+				// コマンドシステムのキー状態をリセット
+				command.ResetKeyState();
 			}
 			// 対象描画
 			if (targetMode)
 			{
 				target.Draw();
 			}
+
+			//debug
+			DrawFormatString(10, 10, GetColor(255, 255, 0), "ESC:%d CANCEL:%d", CheckHitKey(KEY_INPUT_ESCAPE), target.IsCanceled());
+
 		}
 
 		ScreenFlip(); // 裏画面の内容を表画面に反映させる
